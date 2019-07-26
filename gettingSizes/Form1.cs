@@ -267,7 +267,34 @@ namespace gettingSizes
             {
                 tt = new ToolTip();
             }
-            tt.Show(closest.name, this, new Point(position.X + 16, position.Y + 38));
+            string sizeText = "";
+            long sizeint = closest.size;
+            if (sizeint >= 1024)
+            {
+                sizeint /= 1024;
+                if (sizeint >= 1024)
+                {
+                    sizeint /= 1024;
+                    if (sizeint >= 1024)
+                    {
+                        sizeint /= 1024;
+                        sizeText = sizeint + "GB";
+                    }
+                    else
+                    {
+                        sizeText = sizeint + "MB";
+                    }
+                }
+                else
+                {
+                    sizeText = sizeint + "kB";
+                }
+            }
+            else
+            {
+                sizeText = sizeint + "B";
+            }
+            tt.Show(closest.name + ", " + sizeText, this, new Point(position.X + 16, position.Y + 38));
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
